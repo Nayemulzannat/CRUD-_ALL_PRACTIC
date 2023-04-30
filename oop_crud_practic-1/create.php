@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
     $my_age = $database->mysqli->real_escape_string($_REQUEST['age']);
     $city = $database->mysqli->real_escape_string($_REQUEST['city']);
 
-    // var_dump($student_name, $age, $city);
+    // var_dump($student_name, $my_age, $city);
     // die();
 
     if (empty($student_name) || empty($my_age) || empty($city)) {
@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
          Values('$student_name', '$my_age', '$city')";
 
         $create = $database->insert($param);
+
         // var_dump('<pre>',  $create);
         // die();
     }
