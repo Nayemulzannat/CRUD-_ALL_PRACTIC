@@ -18,6 +18,10 @@ class Database
             $this->error = "connection fail" . $this->mysqli->connect_error;
         }
     }
+
+
+
+
     // data show
     public function select($query)
     {
@@ -28,6 +32,11 @@ class Database
             return false;
         }
     }
+
+
+
+
+
     // data insert
     public function insert($param)
     {
@@ -39,6 +48,8 @@ class Database
             die("error :(" . $this->mysqli->errno . ")" . $this->mysqli->error);
         }
     }
+
+    
     // update data
     public function update($param)
     {

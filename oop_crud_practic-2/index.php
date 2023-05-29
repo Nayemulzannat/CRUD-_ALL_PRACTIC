@@ -49,7 +49,7 @@ if (isset($_GET['sms'])) {
                             <td><?php echo $data['AGE'] ?></td>
                             <td><?php echo $data['ADDRESS'] ?></td>
                             <td><?php echo $data['SALARY'] ?></td>
-                            <td><a href="update.php?id=<?php echo $data['id'] ?>"> Edit</a></td>
+                            <td><a href="update.php?id=<?php echo urlencode($data['id']) ?>"> Edit</a></td>
                         </tr>
 
 

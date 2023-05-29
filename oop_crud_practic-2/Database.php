@@ -18,6 +18,15 @@ class Database
             return false;
         }
     }
+
+
+
+
+
+
+
+
+
     // Database read connection 
     public function show($pram)
     {
@@ -29,6 +38,7 @@ class Database
         }
     }
 
+    
 
     // Database insert connection
     public function create($param)
@@ -45,13 +55,42 @@ class Database
 
 
 
+
+
+
+    // Database update connection
+    public function update($param)
+    {
+        $result = $this->connected->query($param) or die($this->connected->error . __LINE__);
+
+        if ($result) {
+            header("Location: index.php?sms=" . urlencode('Data update successfully.'));
+            exit();
+        } else {
+            die("error :(" . $this->connected->errno . ")" . $this->connected->error);
+        }
+    }
+    // Delete data
+    public function delete($param)
+    {
+        $delete = $this->connected->query($param) or die($this->connected->error . __LINE__);
+        if ($delete) {
+            header("Location: index.php?sms=" . urlencode('Data Delete successfully.'));
+            exit();
+        } else {
+            die("error :(" . $this->connected->errno . ")" . $this->connected->error);
+        }
+    }
+
+
+
     // Database connection close
     public function __destruct()
     {
         if ($this->connected) {
             $this->connected->close();
             // echo "<br>";
-            // echo "No connected";
+            echo "No connected";
         }
     }
 }

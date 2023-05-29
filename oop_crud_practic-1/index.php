@@ -6,8 +6,13 @@ include 'database.php';
 
 $obj = new Database();
 $query = "SELECT * FROM student";
+
 $read = $obj->select($query);
+
+
+
 // var_dump('<pre>',$obj);
+
 ?>
 <?php
 if (isset($_GET['sms'])) {
@@ -35,6 +40,9 @@ if (isset($_GET['sms'])) {
             <h2><?php echo "CRUD Using OOP PHP and MYSQLi"; ?></h2>
 
             <!-- table data -->
+
+
+
             <table class="tblone">
                 <tr>
                     <th width="10%">Serial</th>
@@ -62,6 +70,8 @@ if (isset($_GET['sms'])) {
 
 
             </table>
+
+
             <a href="create.php">create</a>
 
 

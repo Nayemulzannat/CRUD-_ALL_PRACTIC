@@ -21,6 +21,7 @@ if (isset($_POST['submit'])) {
     } else {
         $param = "INSERT INTO  emplyee(NAME,AGE,ADDRESS,SALARY)
         values('$name','$age','$address','$salary')";
+        
         $create = $database->create($param);
 
         // var_dump('<pre>', $create);
