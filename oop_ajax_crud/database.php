@@ -22,7 +22,7 @@ class  database
         }
     }
 
-    // data show table
+    // ============ data show table
     public function select($parami)
     {
         $result = $this->connected->query($parami) or die($this->connected->error . __LINE__);
@@ -32,10 +32,20 @@ class  database
             return false;
         }
     }
-    // insert data=========
+    // =========== insert data=========
     public function insert($parami)
     {
         $result = $this->connected->query($parami) or die($this->connected->error . __LINE__);
+        if ($result) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+    // ==========delete data=========
+    public function delete($delete)
+    {
+        $result = $this->connected->query($delete) or die($this->connected->error . __LINE__);
         if ($result) {
             return $result;
             exit();
@@ -43,10 +53,10 @@ class  database
             return false;
         }
     }
-    // delete data=========
-    public function delete($delete)
+    // ============update data=========
+    public function update($update_data)
     {
-        $result = $this->connected->query($delete) or die($this->connected->error . __LINE__);
+        $result = $this->connected->query($update_data) or die($this->connected->error . __LINE__);
         if ($result) {
             return $result;
             exit();

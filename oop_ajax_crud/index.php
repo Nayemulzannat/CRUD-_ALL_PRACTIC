@@ -6,6 +6,9 @@ $object = new database();
 $prami = "SELECT * FROM customer";
 $read = $object->select($prami);
 // echo $prami;
+
+
+
 ?>
 
 
@@ -17,6 +20,7 @@ $read = $object->select($prami);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -31,27 +35,35 @@ $read = $object->select($prami);
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Manage <b>Costomers</b></h2>
+
                     </div>
 
                     <div class="col-sm-6">
                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
                                 class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
 
-                        <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i
+                        <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i
                                 class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+
+
 
                     </div>
                 </div>
             </div>
+            <div class="box-icon">
+                <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
+                    Report</a>
+            </div>
             <div class="showMessage"></div>
-            <table class="table table-striped table-hover" class="requestResult" id="requestResult">
+            <table class="table table-striped table-hover" class="requestResult" id="requestResult myTable">
                 <thead>
                     <tr>
                         <th>
                             <span class="custom-checkbox">
-                                <input type="checkbox" id="selectAll">
+                                <input type="checkbox" id="CheckAll">
                                 <label for="selectAll"></label>
                             </span>
+
                         </th>
                         <th>Name</th>
                         <th>Email</th>
@@ -70,7 +82,8 @@ $read = $object->select($prami);
 
                         <td>
                             <span class="custom-checkbox">
-                                <input type="checkbox" id="checkbox1" name="options[]" value="1">
+                                <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata"
+                                    value="<?php echo $rows['id']; ?>">
                                 <label for="checkbox1"></label>
                             </span>
                         </td>
@@ -82,10 +95,10 @@ $read = $object->select($prami);
 
 
                         <td>
-                            <a onclick="edit_data('<?php echo $rows['id']; ?>')"><i class="material-icons"
+                            <a onclick="edit_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon"
                                     title="Edit">&#xE254;</i></a>
 
-                            <a onclick="delete_data('<?php echo $rows['id']; ?>')"><i class="material-icons" id="cosor"
+                            <a onclick="delete_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon"
                                     title="Delete">&#xE872;</i></a>
                         </td>
 
@@ -115,6 +128,7 @@ $read = $object->select($prami);
                     <li class="page-item"><a href="#" class="page-link">Next</a></li>
                 </ul>
             </div>
+
         </div>
     </div>
 
@@ -176,7 +190,8 @@ $read = $object->select($prami);
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="button" class="btn btn-info" data-dismiss="modal" value="Save">
+                        <input type="button" class="btn btn-info" onclick="update_data()" data-dismiss="modal"
+                            value="Save">
                     </div>
                 </form>
             </div>
@@ -206,7 +221,56 @@ $read = $object->select($prami);
     </div> -->
 </body>
 <script>
-// data insert ajax===============
+function multipleDeleteRecord() {
+    let checkboxdata = [];
+
+    $.each($("input[name='checkboxdata']:checked"), function() {
+        checkboxdata.push($(this).val());
+        alert(this);
+
+    });
+    if (checkboxdata != '') {
+        let msg = confirm("Are You Sure");
+        if (msg == true) {
+            $.ajax({
+                url: "insert.php",
+                type: "POST",
+                data: {
+                    Checkdata: checkboxdata,
+                    type: "MULTI_DELETE_EMPLOYEE"
+                },
+                success: function(response) {
+                    $('.showMessage').css('display', 'block').html(response);
+                    $("#requestResult").load(" #requestResult > ");
+
+                    setTimeout(function() {
+                        $('.showMessage').css('display', 'none');
+
+                    }, 5000);
+                }
+            });
+        }
+    } else {
+        alert("Select Your Record");
+    }
+}
+
+
+
+
+$('#CheckAll').change(function() {
+    // console.log(CheckAll);
+    if ($(this).is(":checked")) {
+        $('.checkboxes').each(function() {
+            $(this).prop("checked", true);
+        });
+    } else {
+        $('.checkboxes').each(function() {
+            $(this).prop("checked", false);
+        });
+    }
+});
+// =============data insert ajax===============
 function insert_sub() {
     let add_name = $("#add_name").val();
     let add_email = $("#add_email").val();
@@ -240,7 +304,7 @@ function insert_sub() {
         }
     });
 }
-// delete data ajax=========
+// =========delete data ajax=========
 
 function delete_data(id) {
     let delete_id = id;
@@ -254,7 +318,7 @@ function delete_data(id) {
                 type: "delete_data"
             },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 $('.showMessage').css('display', 'block').html(response);
                 $("#requestResult").load(" #requestResult > ");
 
@@ -266,7 +330,7 @@ function delete_data(id) {
         });
     }
 }
-
+// =========data edita ajax===============
 function edit_data(edit_id) {
     $.ajax({
         url: "insert.php",
@@ -282,8 +346,59 @@ function edit_data(edit_id) {
     });
 }
 
-// }
-// data edita ajax===============
+//}
+// ======== update data =============
+function update_data() {
+    let update_id = $('#edit_id').val();
+
+    let update_name = $('#edit_name').val();
+    // alert(update_name);
+    let update_email = $('#edit_email').val();
+    let update_address = $('#edit_address').val();
+    let update_phone = $('#edit_phone').val();
+
+
+    $.ajax({
+        url: "insert.php",
+        type: "POST",
+        data: {
+            update_id: update_id,
+            update_name: update_name,
+            update_email: update_email,
+            update_address: update_address,
+            update_phone: update_phone,
+            type: "update_data"
+        },
+        success: function(response) {
+            console.log(response);
+            $('.showMessage').css('display', 'block').html(response);
+            $("#requestResult").load(" #requestResult > ");
+
+            setTimeout(function() {
+                $('.showMessage').css('display', 'none');
+
+            }, 5000);
+        }
+
+    });
+
+}
+
+// $('#myTable').on('draw.dt', function() {
+//     alert('Table redrawn');
+// });
+
+// $('#myTable').DataTable({
+//     buttons: [{
+//         extend: 'csv',
+//         text: 'Copy all data',
+//         exportOptions: {
+//             modifier: {
+//                 search: 'none'
+//             }
+//         }
+//     }]
+// });
 </script>
 
 </html>

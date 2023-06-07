@@ -78,18 +78,21 @@ table.table td a {
     color: #566787;
     display: inline-block;
     text-decoration: none;
+    cursor: pointer;
     outline: none !important;
 }
 table.table td a:hover {
     color: #2196F3;
+
 }
+
 table.table td a.edit {
     color: #FFC107;
 }
 table.table td a.delete {
     color: #F44336;
 }
-table.table td i {
+table.table td a i {
     font-size: 19px;
 }
 table.table .avatar {
@@ -216,7 +219,4 @@ table.table .avatar {
 }	
 .modal form label {
     font-weight: normal;
-}
-#cosor {
-    cursor: pointer;
 }
