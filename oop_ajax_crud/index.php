@@ -39,11 +39,9 @@ $read = $object->select($prami);
                     </div>
 
                     <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
+                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
 
-                        <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i
-                                class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                        <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
 
 
 
@@ -54,6 +52,7 @@ $read = $object->select($prami);
                 <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
                     Report</a>
             </div>
+
             <div class="showMessage"></div>
             <table class="table table-striped table-hover" class="requestResult" id="requestResult myTable">
                 <thead>
@@ -78,32 +77,29 @@ $read = $object->select($prami);
                         while ($rows = $read->fetch_assoc()) {
 
                     ?>
-                    <tr>
+                            <tr>
 
-                        <td>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata"
-                                    value="<?php echo $rows['id']; ?>">
-                                <label for="checkbox1"></label>
-                            </span>
-                        </td>
+                                <td>
+                                    <span class="custom-checkbox">
+                                        <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata" value="<?php echo $rows['id']; ?>">
+                                        <label for="checkbox1"></label>
+                                    </span>
+                                </td>
 
-                        <td><?php echo $rows['name'] ?></td>
-                        <td><?php echo $rows['email'] ?></td>
-                        <td><?php echo $rows['address'] ?></td>
-                        <td><?php echo $rows['phone'] ?></td>
+                                <td><?php echo $rows['name'] ?></td>
+                                <td><?php echo $rows['email'] ?></td>
+                                <td><?php echo $rows['address'] ?></td>
+                                <td><?php echo $rows['phone'] ?></td>
 
 
-                        <td>
-                            <a onclick="edit_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon"
-                                    title="Edit">&#xE254;</i></a>
+                                <td>
+                                    <a onclick="edit_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon" title="Edit">&#xE254;</i></a>
 
-                            <a onclick="delete_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon"
-                                    title="Delete">&#xE872;</i></a>
-                        </td>
+                                    <a onclick="delete_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon" title="Delete">&#xE872;</i></a>
+                                </td>
 
-                    </tr>
-                    <?php } ?>
+                            </tr>
+                        <?php } ?>
 
                     <?php } else {
 
@@ -190,8 +186,7 @@ $read = $object->select($prami);
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="button" class="btn btn-info" onclick="update_data()" data-dismiss="modal"
-                            value="Save">
+                        <input type="button" class="btn btn-info" onclick="update_data()" data-dismiss="modal" value="Save">
                     </div>
                 </form>
             </div>
@@ -221,25 +216,104 @@ $read = $object->select($prami);
     </div> -->
 </body>
 <script>
-function multipleDeleteRecord() {
-    let checkboxdata = [];
+    function multipleDeleteRecord() {
+        let checkboxdata = [];
 
-    $.each($("input[name='checkboxdata']:checked"), function() {
-        checkboxdata.push($(this).val());
-        alert(this);
+        $.each($("input[name='checkboxdata']:checked"), function() {
+            checkboxdata.push($(this).val());
+            alert(this);
 
+        });
+        if (checkboxdata != '') {
+            let msg = confirm("Are You Sure");
+            if (msg == true) {
+                $.ajax({
+                    url: "insert.php",
+                    type: "POST",
+                    data: {
+                        Checkdata: checkboxdata,
+                        type: "MULTI_DELETE_EMPLOYEE"
+                    },
+                    success: function(response) {
+                        $('.showMessage').css('display', 'block').html(response);
+                        $("#requestResult").load(" #requestResult > ");
+
+                        setTimeout(function() {
+                            $('.showMessage').css('display', 'none');
+
+                        }, 5000);
+                    }
+                });
+            }
+        } else {
+            alert("Select Your Record");
+        }
+    }
+
+
+
+
+    $('#CheckAll').change(function() {
+        // console.log(CheckAll);
+        if ($(this).is(":checked")) {
+            $('.checkboxes').each(function() {
+                $(this).prop("checked", true);
+            });
+        } else {
+            $('.checkboxes').each(function() {
+                $(this).prop("checked", false);
+            });
+        }
     });
-    if (checkboxdata != '') {
-        let msg = confirm("Are You Sure");
-        if (msg == true) {
+    // =============data insert ajax===============
+    function insert_sub() {
+        let add_name = $("#add_name").val();
+        let add_email = $("#add_email").val();
+
+        let add_address = $("#add_address").val();
+        // alert(add_address);
+        let add_phone = $("#add_phone").val();
+        $.ajax({
+            url: "insert.php",
+            type: "POST",
+            data: {
+                add_name: add_name,
+                add_email: add_email,
+                add_address: add_address,
+                add_phone: add_phone,
+                type: "add_employee"
+            },
+            success: function(response) {
+                console.log(response);
+                $('.showMessage').css('display', 'block').html(response);
+
+                setTimeout(function() {
+                    $('.showMessage').css('display', 'none');
+
+                }, 5000);
+                $('#fromreset').trigger('reset');
+                $('#addEmployeeModal').modal('hide');
+
+
+                $("#requestResult").load(" #requestResult > ");
+            }
+        });
+    }
+    // =========delete data ajax=========
+
+    function delete_data(id) {
+        let delete_id = id;
+        let istrue = confirm("Are You Sure =================!!!!!");
+        if (istrue == true) {
             $.ajax({
                 url: "insert.php",
                 type: "POST",
                 data: {
-                    Checkdata: checkboxdata,
-                    type: "MULTI_DELETE_EMPLOYEE"
+                    id: delete_id,
+                    type: "delete_data"
                 },
                 success: function(response) {
+                    // console.log(response);
                     $('.showMessage').css('display', 'block').html(response);
                     $("#requestResult").load(" #requestResult > ");
 
@@ -250,75 +324,48 @@ function multipleDeleteRecord() {
                 }
             });
         }
-    } else {
-        alert("Select Your Record");
     }
-}
-
-
-
-
-$('#CheckAll').change(function() {
-    // console.log(CheckAll);
-    if ($(this).is(":checked")) {
-        $('.checkboxes').each(function() {
-            $(this).prop("checked", true);
-        });
-    } else {
-        $('.checkboxes').each(function() {
-            $(this).prop("checked", false);
-        });
-    }
-});
-// =============data insert ajax===============
-function insert_sub() {
-    let add_name = $("#add_name").val();
-    let add_email = $("#add_email").val();
-
-    let add_address = $("#add_address").val();
-    // alert(add_address);
-    let add_phone = $("#add_phone").val();
-    $.ajax({
-        url: "insert.php",
-        type: "POST",
-        data: {
-            add_name: add_name,
-            add_email: add_email,
-            add_address: add_address,
-            add_phone: add_phone,
-            type: "add_employee"
-        },
-        success: function(response) {
-            console.log(response);
-            $('.showMessage').css('display', 'block').html(response);
-
-            setTimeout(function() {
-                $('.showMessage').css('display', 'none');
-
-            }, 5000);
-            $('#fromreset').trigger('reset');
-            $('#addEmployeeModal').modal('hide');
-
-
-            $("#requestResult").load(" #requestResult > ");
-        }
-    });
-}
-// =========delete data ajax=========
-
-function delete_data(id) {
-    let delete_id = id;
-    let istrue = confirm("Are You Sure =================!!!!!");
-    if (istrue == true) {
+    // =========data edita ajax===============
+    function edit_data(edit_id) {
         $.ajax({
             url: "insert.php",
             type: "POST",
             data: {
-                id: delete_id,
-                type: "delete_data"
+                id: edit_id,
+                type: "edit_form_data"
             },
             success: function(response) {
-                // console.log(response);
+                $('#editFormData').html(response);
+                $("#editEmployeeModal").modal('show');
+            }
+        });
+    }
+
+    //}
+    // ======== update data =============
+    function update_data() {
+        let update_id = $('#edit_id').val();
+
+        let update_name = $('#edit_name').val();
+        // alert(update_name);
+        let update_email = $('#edit_email').val();
+        let update_address = $('#edit_address').val();
+        let update_phone = $('#edit_phone').val();
+
+
+        $.ajax({
+            url: "insert.php",
+            type: "POST",
+            data: {
+                update_id: update_id,
+                update_name: update_name,
+                update_email: update_email,
+                update_address: update_address,
+                update_phone: update_phone,
+                type: "update_data"
+            },
+            success: function(response) {
+                console.log(response);
                 $('.showMessage').css('display', 'block').html(response);
                 $("#requestResult").load(" #requestResult > ");
 
@@ -327,78 +374,26 @@ function delete_data(id) {
 
                 }, 5000);
             }
+
         });
+
     }
-}
-// =========data edita ajax===============
-function edit_data(edit_id) {
-    $.ajax({
-        url: "insert.php",
-        type: "POST",
-        data: {
-            id: edit_id,
-            type: "edit_form_data"
-        },
-        success: function(response) {
-            $('#editFormData').html(response);
-            $("#editEmployeeModal").modal('show');
-        }
-    });
-}
 
-//}
-// ======== update data =============
-function update_data() {
-    let update_id = $('#edit_id').val();
+    // $('#myTable').on('draw.dt', function() {
+    //     alert('Table redrawn');
+    // });
 
-    let update_name = $('#edit_name').val();
-    // alert(update_name);
-    let update_email = $('#edit_email').val();
-    let update_address = $('#edit_address').val();
-    let update_phone = $('#edit_phone').val();
-
-
-    $.ajax({
-        url: "insert.php",
-        type: "POST",
-        data: {
-            update_id: update_id,
-            update_name: update_name,
-            update_email: update_email,
-            update_address: update_address,
-            update_phone: update_phone,
-            type: "update_data"
-        },
-        success: function(response) {
-            console.log(response);
-            $('.showMessage').css('display', 'block').html(response);
-            $("#requestResult").load(" #requestResult > ");
-
-            setTimeout(function() {
-                $('.showMessage').css('display', 'none');
-
-            }, 5000);
-        }
-
-    });
-
-}
-
-// $('#myTable').on('draw.dt', function() {
-//     alert('Table redrawn');
-// });
-
-// $('#myTable').DataTable({
-//     buttons: [{
-//         extend: 'csv',
-//         text: 'Copy all data',
-//         exportOptions: {
-//             modifier: {
-//                 search: 'none'
-//             }
-//         }
-//     }]
-// });
+    // $('#myTable').DataTable({
+    //     buttons: [{
+    //         extend: 'csv',
+    //         text: 'Copy all data',
+    //         exportOptions: {
+    //             modifier: {
+    //                 search: 'none'
+    //             }
+    //         }
+    //     }]
+    // });
 </script>
 
 </html>
