@@ -20,6 +20,6 @@ $sql = "INSERT INTO students(roll,name,age,gender) VALUES ({$roll},'{$name}',{$a
 $result = mysqli_query($conn, $sql) or die("Not Query Result");
 if ($result) {
     echo json_encode(array('massage' => 'Record Inserted.', 'status => true'));
-}else {
-    echo json_encode(array('massage' => ' Record Found.', 'status => false'));
+} else {
+    echo json_encode(array('massage' => ' Record Not Found.', 'status => false'));
 }
