@@ -10,14 +10,14 @@ $data = json_decode(file_get_contents("php://input"), true);
 
 $roll = $data['roll'];
 $name = $data['name'];
-$age = $data['age'];
 $gender = $data['gender'];
+$age = $data['age'];
 
 
 include "config.php";
-$sql = "UPDATE students SET roll = {$roll}, name ='{$name}', age = {$age}, gender = {$gender} WHERE roll = {$roll}";
+$sql = "UPDATE students SET roll = {$roll}, name ='{$name}', gender = '{$gender}', age = {$age} WHERE roll = {$roll}";
 
-$result = mysqli_query($conn, $sql) or die("Not Query Result");
+$result = mysqli_query($conn, $sql);
 if ($result) {
     echo json_encode(array('massage' => 'Record Update.', 'status => true'));
 }else {
