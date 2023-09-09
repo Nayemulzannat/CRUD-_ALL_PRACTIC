@@ -3,7 +3,7 @@ header('content-type: application/json');
 header('Acess-Control-Allow-origin:*');
 
 $data = json_decode(file_get_contents("php://input"), true);
-$student_id = $data['roll'];
+echo $student_id = $data['roll'];
 
 include "config.php";
 $sql = "select * from students where roll = {$student_id}";

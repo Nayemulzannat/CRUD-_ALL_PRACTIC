@@ -68,7 +68,7 @@
             </tr>
             <tr>
               <td>City</td>
-              <td><input type="text" name="scity" id="edit-city" /></td>
+              <td><input type="text" name="scity" id="edit-gender" /></td>
             </tr>
             <tr>
               <td></td>
@@ -97,12 +97,24 @@
                 $.each(data, function (key, value) {
                   $("#load-table").append(
                     "<tr>" +
-                      "<td>" + value.roll + "</td>" +
-                      "<td>" + value.name + "</td>" +
-                      "<td>" + value.age +"</td>" +
-                      "<td>" + value.gender +"</td>" +
-                      "<td><button class = 'edit-btn'roll=" + value.roll + ">Edit</button></td>" +
-                      "<td><button class = 'delete-btn'roll=" +  value.roll + ">Delete</button></td>" +
+                      "<td>" +
+                      value.roll +
+                      "</td>" +
+                      "<td>" +
+                      value.name +
+                      "</td>" +
+                      "<td>" +
+                      value.age +
+                      "</td>" +
+                      "<td>" +
+                      value.gender +
+                      "</td>" +
+                      "<td><button class = 'edit-btn'data-sroll=" +
+                      value.roll +
+                      ">Edit</button></td>" +
+                      "<td><button class = 'delete-btn'data-roll=" +
+                      value.roll +
+                      ">Delete</button></td>" +
                       "</tr>"
                   );
                 });
@@ -118,6 +130,24 @@
         //Fetch Single Record : Show in Modal Box
         $(document).on("click", ".edit-btn", function () {
           $("#modal").show();
+          var roll = $(this).data("sroll");
+          var obj = { s_roll: roll };
+          var myJson = JSON.stringify(obj);
+          // alert(myJson);
+          console.log(myJson);
+          $.ajax({
+            url: "http://localhost/CRUD_ALL_PRACTIC/php-rest-api-crud/api-fetch-single.php",
+            type: "POST",
+            data: myJson,
+            dataType: "json",
+            success: function (data) {
+              
+              $("#edit-id").val(data[0].roll);
+              $("#edit-name").val(data[0].name);
+              $("#edit-age").val(data[0].age);
+              $("#edit-gender").val(data[0].gender);
+            },
+          });
         });
         //Hide Modal Box
         $("#close-btn").on("click", function () {
