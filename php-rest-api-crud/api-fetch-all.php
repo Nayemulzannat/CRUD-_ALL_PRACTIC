@@ -1,6 +1,6 @@
 <?php
 header('content-type: application/json');
-header('Acess-Control-Allow-origin:*');
+header('Access-Control-Allow-origin:*');
 
 include "config.php";
 $sql = "select * from students";
