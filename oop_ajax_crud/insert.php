@@ -1,7 +1,6 @@
 <?php
 include "database.php";
 $database = new database();
-// $read = $databse->insert($parami);
 
 // ==========data insert==========
 

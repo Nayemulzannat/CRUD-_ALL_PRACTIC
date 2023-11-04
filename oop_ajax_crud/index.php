@@ -35,16 +35,10 @@ $read = $object->select($prami);
                 <div class="row">
                     <div class="col-sm-6">
                         <h2>Manage <b>Costomers</b></h2>
-
                     </div>
-
                     <div class="col-sm-6">
                         <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-
                         <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
-
-
-
                     </div>
                 </div>
             </div>
@@ -62,7 +56,6 @@ $read = $object->select($prami);
                                 <input type="checkbox" id="CheckAll">
                                 <label for="selectAll"></label>
                             </span>
-
                         </th>
                         <th>Name</th>
                         <th>Email</th>
@@ -90,26 +83,18 @@ $read = $object->select($prami);
                                 <td><?php echo $rows['email'] ?></td>
                                 <td><?php echo $rows['address'] ?></td>
                                 <td><?php echo $rows['phone'] ?></td>
-
-
                                 <td>
                                     <a onclick="edit_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon" title="Edit">&#xE254;</i></a>
-
                                     <a onclick="delete_data('<?php echo $rows['id']; ?>')"><i class="material-icons icon" title="Delete">&#xE872;</i></a>
                                 </td>
-
                             </tr>
                         <?php } ?>
 
                     <?php } else {
-
-
                         echo '<p style="  background-color: #ffcccc;color: #ff0000;   padding: 10px; border: 1px solid #ff0000; border-radius: 4px; margin-bottom: 10px;">Sorry,Data not available !!.</p>';
                         // echo '<p style="background-color: #d4edda; color: #155724;padding: 10px;   border: 1px solid #c3e6cb;  border-radius: 4px; margin-bottom: 10px;">Data not available !!</p>';
 
                     } ?>
-
-
                 </tbody>
             </table>
             <div class="clearfix">
@@ -218,11 +203,9 @@ $read = $object->select($prami);
 <script>
     function multipleDeleteRecord() {
         let checkboxdata = [];
-
         $.each($("input[name='checkboxdata']:checked"), function() {
             checkboxdata.push($(this).val());
             alert(this);
-
         });
         if (checkboxdata != '') {
             let msg = confirm("Are You Sure");
@@ -249,10 +232,6 @@ $read = $object->select($prami);
             alert("Select Your Record");
         }
     }
-
-
-
-
     $('#CheckAll').change(function() {
         // console.log(CheckAll);
         if ($(this).is(":checked")) {
@@ -286,21 +265,16 @@ $read = $object->select($prami);
             success: function(response) {
                 console.log(response);
                 $('.showMessage').css('display', 'block').html(response);
-
                 setTimeout(function() {
                     $('.showMessage').css('display', 'none');
-
                 }, 5000);
                 $('#fromreset').trigger('reset');
                 $('#addEmployeeModal').modal('hide');
-
-
-                $("#requestResult").load(" #requestResult > ");
+                $("#requestResult").load("#requestResult");
             }
         });
     }
     // =========delete data ajax=========
-
     function delete_data(id) {
         let delete_id = id;
         let istrue = confirm("Are You Sure =================!!!!!");
@@ -316,10 +290,8 @@ $read = $object->select($prami);
                     // console.log(response);
                     $('.showMessage').css('display', 'block').html(response);
                     $("#requestResult").load(" #requestResult > ");
-
                     setTimeout(function() {
                         $('.showMessage').css('display', 'none');
-
                     }, 5000);
                 }
             });
@@ -340,12 +312,9 @@ $read = $object->select($prami);
             }
         });
     }
-
-    //}
     // ======== update data =============
     function update_data() {
         let update_id = $('#edit_id').val();
-
         let update_name = $('#edit_name').val();
         // alert(update_name);
         let update_email = $('#edit_email').val();
@@ -378,22 +347,6 @@ $read = $object->select($prami);
         });
 
     }
-
-    // $('#myTable').on('draw.dt', function() {
-    //     alert('Table redrawn');
-    // });
-
-    // $('#myTable').DataTable({
-    //     buttons: [{
-    //         extend: 'csv',
-    //         text: 'Copy all data',
-    //         exportOptions: {
-    //             modifier: {
-    //                 search: 'none'
-    //             }
-    //         }
-    //     }]
-    // });
 </script>
 
 </html>
