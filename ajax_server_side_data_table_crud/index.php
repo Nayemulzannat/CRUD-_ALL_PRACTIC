@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <body>
     <div class="container">
         <div class="table-wrapper">
@@ -27,28 +28,63 @@
                     </div>
                 </div>
             </div>
-            <div class="box-icon">
-                <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
-                    Report</a>
+        </div>
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box box-secondary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title"></h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" class="form-control" value="<?php echo $date; ?>" id="start_date">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" class="form-control" value="<?php echo $date; ?>" id="end_date">
+                                </div>
+                                <div class="form-group" style="margin-top: 40px;">
+                                    <button type="button" onclick="deily_report()" class="btn btn-info" name="button">Search</button>
+                                    <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
+                                    Report</a>   
+
+
+                                </div>
+                            </div>                            
+                                                      
+                    </div>
+                </div>
             </div>
-            <div class="showMessage"></div>
-            <table class="table table-striped table-hover" class="requestResult" id="requestResult myTable">
-                <thead>
-                    <tr>
-                        <th>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="CheckAll">
-                                <label for="selectAll"></label>
-                            </span>
-                        </th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <!-- <tbody>
+        </section>
+    </div>
+    <div class="container">
+
+        <div class="showMessage"></div>
+        <div class="box-header" data-original-title>
+            <h2><i class="icon-align-justify"></i><span class="break"></span>CRM Report</h2>
+        </div>
+        <table class="table table-striped table-hover" class="requestResult" id="requestResult myTable">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="custom-checkbox">
+                            <input type="checkbox" id="CheckAll">
+                            <label for="selectAll"></label>
+                        </span>
+                    </th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <!-- <tbody>
                     <tr>
                                 <td>
                                     <span class="custom-checkbox">
@@ -67,20 +103,7 @@
                                 </td>
                             </tr>                   
                 </tbody> -->
-            </table>
-            <div class="clearfix">
-                <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                <ul class="pagination">
-                    <li class="page-item disabled"><a href="#">Previous</a></li>
-                    <li class="page-item"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                </ul>
-            </div>
-        </div>
+        </table>
     </div>
     <!-- add employee Modal HTML -->
     <div id="addEmployeeModal" class="modal fade">
@@ -89,8 +112,7 @@
                 <form id="fromreset">
                     <div class="modal-header">
                         <h4 class="modal-title">Add EmployeeEmployee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                            onclick="insert_sub()">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="insert_sub()">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
