@@ -16,19 +16,18 @@
 
 <body>
     <div class="container">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>One Modal <b> And Server Side Data Table Use Crud System </b></h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
-                        <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
-                    </div>
+        <div class="table-title" style="padding-top: 50px;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>One Modal <b> And Server Side Data Table Use Crud System </b></h2>
+                </div>
+                <div class="col-sm-6">
+                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
+                    <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
+
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -51,15 +50,12 @@
                                 <div class="form-group" style="margin-top: 40px;">
                                     <button type="button" onclick="deily_report()" class="btn btn-info" name="button">Search</button>
                                     <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
-                                    Report</a>   
-
-
+                                        Report</a>
                                 </div>
-                            </div>                            
-                                                      
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
     <div class="container">
