@@ -39,6 +39,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Start Date</label>
+                                    <label>Start Date</label>
                                     <input type="date" class="form-control" value="<?php echo $date; ?>" id="start_date">
                                 </div>
                             </div>
