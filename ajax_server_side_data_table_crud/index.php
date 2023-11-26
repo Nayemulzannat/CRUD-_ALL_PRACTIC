@@ -74,7 +74,6 @@
                         </span>
                     </th>
                     <th>Name</th>
-                    <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
                     <th>Phone</th>
@@ -84,7 +83,7 @@
             </thead>
             <!-- <tbody>
                     <tr>
-                                <td>
+                            <td>
                                     <span class="custom-checkbox">
                                         <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata" ?>">
                                         <label for="checkbox1"></label>
@@ -103,6 +102,8 @@
                 </tbody> -->
         </table>
     </div>
+
+
     <!-- add employee Modal HTML -->
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
@@ -158,7 +159,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
