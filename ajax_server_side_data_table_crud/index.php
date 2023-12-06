@@ -14,6 +14,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+
 <body>
     <div class="container">
         <div class="table-title" style="padding-top: 50px;">
@@ -59,49 +64,48 @@
         </section>
     </div>
     <div class="container">
-
         <div class="showMessage"></div>
         <div class="box-header" data-original-title>
             <h2><i class="icon-align-justify"></i><span class="break"></span>CRM Report</h2>
         </div>
-        <table class="table table-striped table-hover" class="requestResult" id="requestResult myTable">
-            <thead>
-                <tr>
-                    <th>
+        <form action="" method="post">
+            <table class="table table-striped table-hover" class="requestResult" id="dataTable">
+                <thead>
+                    <tr>
+                        <!-- <th>
                         <span class="custom-checkbox">
                             <input type="checkbox" id="CheckAll">
                             <label for="selectAll"></label>
                         </span>
-                    </th>
-                    <th>Name</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <!-- <tbody>
+                    </th> -->
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr>
-                            <td>
-                                    <span class="custom-checkbox">
-                                        <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata" ?>">
-                                        <label for="checkbox1"></label>
-                                    </span>
-                                </td>
-
-                                <td><?php echo $rows['name'] ?></td>
-                                <td><?php echo $rows['email'] ?></td>
-                                <td><?php echo $rows['address'] ?></td>
-                                <td><?php echo $rows['phone'] ?></td>
-                                <td>
-                                    <a><i class="material-icons icon" title="Edit">&#xE254;</i></a>
-                                    <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
-                                </td>
-                            </tr>                   
-                </tbody> -->
-        </table>
+                        <td>
+                            <!-- <span class="custom-checkbox">
+                            <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata">
+                            <label for="checkbox1"></label>
+                        </span> -->
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a><i class="material-icons icon" title="Edit">&#xE254;</i></a>
+                            <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 
 
@@ -160,6 +164,26 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5'
+
+                ]
+            });
+        });
+    </script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- datable library -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script> -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 </html>
