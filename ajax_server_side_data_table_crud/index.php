@@ -31,7 +31,8 @@ $date = date("Y-m-d");
                     <h2>One Modal <b> And Server Side Data Table Use Crud System </b></h2>
                 </div>
                 <div class="col-sm-6">
-                    <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
+                    <!-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a> -->
+                    <a  class="btn btn-success" onclick="addFromData();"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
                     <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
@@ -103,34 +104,7 @@ $date = date("Y-m-d");
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="fromreset">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Add EmployeeEmployee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="insert_sub()">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" id="add_name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" id="add_email">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <textarea class="form-control" id="add_address"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" id="add_phone">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="button" class="btn btn-success" value="Add">
-                    </div>
-                </form>
+               <span id="modal-show"></span>
             </div>
         </div>
     </div>
@@ -174,6 +148,23 @@ $date = date("Y-m-d");
                 }
             });
         }
+        function addFromData() {
+            $.ajax({
+                url: 'action.php',
+                type: "post",
+                data: {
+                    acrion: "Create",
+                    btnAction: "insert_data",
+                    type: "FORM_DATA"
+                },
+                success: function(responce) {
+                    alert(responce);
+                    $("#addEmployeeModal").modal('show');
+                    $("#modal-show").html(responce);
+
+                }
+            });
+        }
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
@@ -182,7 +173,7 @@ $date = date("Y-m-d");
                     'excelHtml5'
                 ]
             });
-        });        
+        });
     </script>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
