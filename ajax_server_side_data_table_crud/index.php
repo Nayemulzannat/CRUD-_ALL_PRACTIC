@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+// include'database.php';
+$date = date("Y-m-d");
+?>
 
 <head>
     <meta charset="utf-8">
@@ -32,7 +36,6 @@
                 </div>
             </div>
         </div>
-
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -53,7 +56,7 @@
                                     <input type="date" class="form-control" value="<?php echo $date; ?>" id="end_date">
                                 </div>
                                 <div class="form-group" style="margin-top: 40px;">
-                                    <button type="button" onclick="deily_report()" class="btn btn-info" name="button">Search</button>
+                                    <button type="button" onclick="data_search()" class="btn btn-info" name="button">Search</button>
                                     <a href="download.php" class="btn btn-warning btn_download"><i class="icon-download"></i> Download
                                         Report</a>
                                 </div>
@@ -64,7 +67,6 @@
         </section>
     </div>
     <div class="container">
-        <div class="showMessage"></div>
         <div class="box-header" data-original-title>
             <h2><i class="icon-align-justify"></i><span class="break"></span>CRM Report</h2>
         </div>
@@ -72,43 +74,31 @@
             <table class="table table-striped table-hover" class="requestResult" id="dataTable">
                 <thead>
                     <tr>
-                        <!-- <th>
-                        <span class="custom-checkbox">
-                            <input type="checkbox" id="CheckAll">
-                            <label for="selectAll"></label>
-                        </span>
-                    </th> -->
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Phone</th>
-                        <th>Actions</th>
-                        <th>Actions</th>
+                        <th>
+                            <span class="custom-checkbox">
+                                <input type="checkbox" id="CheckAll">
+                                <label for="selectAll"></label>
+                            </span>
+                        </th>
+                        <th>ID </th>
+                        <th>name </th>
+                        <th>designation </th>
+                        <th>office_tele </th>
+                        <th>office_mobile </th>
+                        <th>personal_number </th>
+                        <!-- <th>email </th>
+                        <th>address </th>
+                        <th>name_of_office </th>
+                        <th>division </th>
+                        <th>district </th> -->
+                        <th>created_at</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <!-- <span class="custom-checkbox">
-                            <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata">
-                            <label for="checkbox1"></label>
-                        </span> -->
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <a><i class="material-icons icon" title="Edit">&#xE254;</i></a>
-                            <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
-                        </td>
-                    </tr>
-                </tbody>
+                <tbody id="result"></tbody>
             </table>
         </form>
     </div>
-
-
     <!-- add employee Modal HTML -->
     <div id="addEmployeeModal" class="modal fade">
         <div class="modal-dialog">
@@ -165,16 +155,34 @@
         </div>
     </div>
     <script type="text/javascript">
+        function data_search() {
+            var start_date = $('#start_date').val();
+            var end_date = $('#end_date').val();
+            $.ajax({
+                url: "action.php",
+                type: "POST",
+                data: {
+                    start_date: start_date,
+                    end_date: end_date,
+                    type: "DATA_SEARCH"
+                },
+                // dataType:"POST",
+                success: function(result) {
+                    // alert(result);
+                    // console.log(result);
+                    $('#result').html(result);
+                }
+            });
+        }
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     'copyHtml5',
                     'excelHtml5'
-
                 ]
             });
-        });
+        });        
     </script>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

@@ -5,7 +5,7 @@ class  database
     private $db_host = "localhost";
     private $db_user = "root";
     private $db_pass = "";
-    private $db_name = "oop_crud_1";
+    private $db_name = "asterisk";
 
     public $connected;
     public $error;
@@ -17,15 +17,15 @@ class  database
         $this->connected = new mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
         // echo "connected";
         if (!$this->connected) {
-
             $this->error = "connection is fail" . $this->connected->connect_error;
         }
     }
 
     // ============ data show table
-    public function select($parami)
+    public function select($dataSelect)
     {
-        $result = $this->connected->query($parami) or die($this->connected->error . __LINE__);
+        // return $dataSelect;
+        $result = $this->connected->query($dataSelect) or die($this->connected->error . __LINE__);
         if ($result->num_rows > 0) {
             return $result;
         } else {
