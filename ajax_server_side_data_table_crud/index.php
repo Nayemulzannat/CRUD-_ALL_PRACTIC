@@ -3,6 +3,7 @@
 <?php
 // include'database.php';
 $date = date("Y-m-d");
+$status = NULL;
 ?>
 
 <head>
@@ -33,7 +34,7 @@ $date = date("Y-m-d");
                 <div class="col-sm-6">
                     <!-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a> -->
                     <a class="btn btn-success" onclick="addFromData();"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
-                    <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                    <a class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
@@ -139,6 +140,7 @@ $date = date("Y-m-d");
                 },
                 success: function(responce) {
                     // alert(responce);
+                    // console.log(responce);
                     $("#addEmployeeModal").modal('show');
                     $("#modal-show").html(responce);
                 }
@@ -148,10 +150,10 @@ $date = date("Y-m-d");
         function updateFormData(id) {
             $.ajax({
                 url: 'action.php',
-                type: 'POST',
+                type: 'post',
                 data: {
                     id: id,
-                    acrion: "Udate",
+                    acrion: "Update",
                     btnAction: "update_data",
                     type: "FORM_DATA"
                 },
@@ -162,6 +164,50 @@ $date = date("Y-m-d");
                 }
             });
         };
+
+        function update_data() {
+            var name = $('#addname').val();
+            var designation = $('#adddesignation').val();
+            var office_tele = $('#addofficetele').val();
+            var office_mobile = $('#addofficemobile').val();
+            var personal_number = $('#addpersonalnumber').val();
+            var email = $('#addemail').val();
+            var address = $('#addaddress').val();
+            var name_of_office = $('#addnameoffice').val();
+            var division = $('#adddivision').val();
+            var district = $('#adddistrict').val();
+            var updateId = $('#updateId').val();
+            $.ajax({
+                url: 'action.php',
+                type: 'post',
+                data: {
+                    name: name,
+                    designation: designation,
+                    office_tele: office_tele,
+                    office_mobile: office_mobile,
+                    personal_number: personal_number,
+                    email: email,
+                    address: address,
+                    name_of_office: name_of_office,
+                    division: division,
+                    district: district,
+                    updateId: updateId,
+                    type: 'update_data_ajax'
+                },
+                dataType: 'json',
+                success: function(responce) {
+                    // console.log(responce);
+                    // alert(responce);
+                    console.log(responce);
+                    if (responce.status == "success") {
+                        // $("#dataTable").load(" #dataTable > *");
+                        sweetAlertSuccess(responce.msg);
+                    } else {
+                        sweetAlertError(responce.msg);
+                    }
+                }
+            });
+        }
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
@@ -172,6 +218,31 @@ $date = date("Y-m-d");
             });
         });
     </script>
+    <script>
+        function sweetAlertSuccess(msg) {
+            alert(msg);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+
+        function sweetAlertError(msg) {
+            alert(msg);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: msg,
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    </script>
+    <!-- jQuery sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!-- datable library -->
@@ -180,6 +251,7 @@ $date = date("Y-m-d");
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script> -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>
