@@ -32,7 +32,7 @@ $date = date("Y-m-d");
                 </div>
                 <div class="col-sm-6">
                     <!-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a> -->
-                    <a  class="btn btn-success" onclick="addFromData();"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
+                    <a class="btn btn-success" onclick="addFromData();"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
                     <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
@@ -81,7 +81,6 @@ $date = date("Y-m-d");
                                 <label for="selectAll"></label>
                             </span>
                         </th>
-                        <th>ID </th>
                         <th>name </th>
                         <th>designation </th>
                         <th>office_tele </th>
@@ -101,30 +100,10 @@ $date = date("Y-m-d");
         </form>
     </div>
     <!-- add employee Modal HTML -->
-    <div id="addEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-80p">
             <div class="modal-content">
-               <span id="modal-show"></span>
-            </div>
-        </div>
-    </div>
-    <!-- Edit Modal HTML -->
-    <div id="editEmployeeModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Employee</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <span id="editFormData"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                        <input type="button" class="btn btn-info" onclick="update_data()" data-dismiss="modal" value="Save">
-                    </div>
-                </form>
+                <span id="modal-show"></span>
             </div>
         </div>
     </div>
@@ -148,6 +127,7 @@ $date = date("Y-m-d");
                 }
             });
         }
+
         function addFromData() {
             $.ajax({
                 url: 'action.php',
@@ -158,13 +138,30 @@ $date = date("Y-m-d");
                     type: "FORM_DATA"
                 },
                 success: function(responce) {
-                    alert(responce);
+                    // alert(responce);
                     $("#addEmployeeModal").modal('show');
                     $("#modal-show").html(responce);
-
                 }
             });
         }
+
+        function updateFormData(id) {
+            $.ajax({
+                url: 'action.php',
+                type: 'POST',
+                data: {
+                    id: id,
+                    acrion: "Udate",
+                    btnAction: "update_data",
+                    type: "FORM_DATA"
+                },
+                success: function(responce) {
+                    console.log(responce);
+                    $("#addEmployeeModal").modal('show');
+                    $("#modal-show").html(responce);
+                }
+            });
+        };
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
