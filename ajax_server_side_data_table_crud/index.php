@@ -15,7 +15,8 @@ $status = NULL;
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -23,7 +24,6 @@ $status = NULL;
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
-
 <body>
     <div class="container">
         <div class="table-title" style="padding-top: 50px;">
@@ -198,7 +198,7 @@ $status = NULL;
                 success: function(responce) {
                     // console.log(responce);
                     // alert(responce);
-                    console.log(responce);
+                    // console.log(responce);
                     if (responce.status == "success") {
                         // $("#dataTable").load(" #dataTable > *");
                         sweetAlertSuccess(responce.msg);
@@ -208,19 +208,34 @@ $status = NULL;
                 }
             });
         }
+        // $(document).ready(function() {
+        //     $('#dataTable').DataTable({
+        //         dom: 'Bfrtip',
+        //         buttons: [
+        //             'copyHtml5',
+        //             'excelHtml5'
+        //         ]
+        //     });
+        // });
+    </script>
+    <script type="text/javascript">
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
-                    'copyHtml5',
-                    'excelHtml5'
-                ]
+                buttons: [{
+                    extend: 'excel',
+                    text: 'Excel',
+                    exportOptions: {
+                        modifier: {
+                            search: 'none'
+                        }
+                    }
+                }]
             });
         });
     </script>
     <script>
         function sweetAlertSuccess(msg) {
-            alert(msg);
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
@@ -231,7 +246,6 @@ $status = NULL;
         }
 
         function sweetAlertError(msg) {
-            alert(msg);
             Swal.fire({
                 position: 'top-end',
                 icon: 'error',

@@ -1,0 +1,4 @@
+/* CSS used here will be applied after bootstrap.css */
+.modal-80p {
+    width:80%; /* 80% of page to provide space for labels */
+  }

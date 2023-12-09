@@ -40,11 +40,28 @@ if ($_POST['type'] == 'DATA_SEARCH') {
 if ($_POST['type'] == "FORM_DATA") {
     $acrion = $_POST['acrion'];
     $btnAction = $_POST['btnAction'];
-    $unique = $_POST['id'];
-    $sql = "SELECT * FROM `employee_document` WHERE `id`='{$unique}'";
-    $object = new database();
-    $queryResult = $object->select($sql);
-    $data = $queryResult->fetch_assoc();
+    if ($btnAction == 'update_data') {
+        $unique = $_POST['id'];
+        $sql = "SELECT * FROM `employee_document` WHERE `id`='{$unique}'";
+        $object = new database();
+        $queryResult = $object->select($sql);
+        $data = $queryResult->fetch_assoc();
+    } else {
+        $data =  array(
+            'id' => '',
+            'name' => '',
+            'designation' => '',
+            'office_tele' => '',
+            'office_mobile' => '',
+            'personal_number' => '',
+            'email' => '',
+            'address' => '',
+            'name_of_office' => '',
+            'division' => '',
+            'district' => '',
+            'created_at' => ''
+        );
+    }
     ?>
     <form id="fromreset">
         <div class="modal-header">
@@ -133,7 +150,7 @@ if ($_POST['type'] == 'update_data_ajax') {
     $division = $_POST['division'];
     $district = $_POST['district'];
     $updateId = $_POST['updateId'];
-    $sql = "UPDATE `employee_document` SET `name`='{$name}',`designation`='{$designation}',`office_tele`='{$office_tele}',`office_mobile`='{$office_mobile}',`personal_number`='{ $personal_number}',`email`='{$email}',`address`='{$address}',`name_of_office`='{$name_of_office}',`division`='{$division}',`district`='{$district}' WHERE `id`='{$updateId}'";
+    $sql = "UPDATE `employee_document` SET `name`='$name',`designation`='$designation',`office_tele`='$office_tele',`office_mobile`='$office_mobile',`personal_number`=' $personal_number',`email`='$email',`address`='$address',`name_of_office`='$name_of_office',`division`='$division',`district`='$district' WHERE `id`='$updateId'";
     $result = $database->update($sql);
     if ($result) {
         $arr = array('status' => 'success', 'msg' => 'Data Update Successfully.');
