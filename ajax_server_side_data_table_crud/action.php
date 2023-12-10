@@ -36,32 +36,10 @@ if ($_POST['type'] == 'DATA_SEARCH') {
         }
     }
 }
-//=========== Form data connection ============//
+//=========== Modal  connection Start ============//
 if ($_POST['type'] == "FORM_DATA") {
     $acrion = $_POST['acrion'];
     $btnAction = $_POST['btnAction'];
-    if ($btnAction == 'update_data') {
-        $unique = $_POST['id'];
-        $sql = "SELECT * FROM `employee_document` WHERE `id`='{$unique}'";
-        $object = new database();
-        $queryResult = $object->select($sql);
-        $data = $queryResult->fetch_assoc();
-    } else {
-        $data =  array(
-            'id' => '',
-            'name' => '',
-            'designation' => '',
-            'office_tele' => '',
-            'office_mobile' => '',
-            'personal_number' => '',
-            'email' => '',
-            'address' => '',
-            'name_of_office' => '',
-            'division' => '',
-            'district' => '',
-            'created_at' => ''
-        );
-    }
     ?>
     <form id="fromreset">
         <div class="modal-header">
@@ -72,58 +50,58 @@ if ($_POST['type'] == "FORM_DATA") {
             <div class="form-group">
                 <div class="col-sm-12">
                     <span class="label label-default">Name</span>
-                    <input type="text" class="form-control" id="addname" placeholder="Enter Name......." value="<?php echo  $data['name']; ?>">
-                    <input type="hidden" class="form-control" style="width: 100%;" id="updateId" value="<?php echo $data['id']; ?>">
+                    <input type="text" class="form-control" id="addname" placeholder="Enter Name.......">
+                    <input type="hidden" class="form-control" style="width: 100%;" id="updateId">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Designation</span>
-                    <input type="text" class="form-control" id="adddesignation" placeholder="Enter A Designation" value="<?php echo  $data['designation']; ?>">
+                    <input type="text" class="form-control" id="adddesignation" placeholder="Enter A Designation">
                 </div>
                 <div class="col-sm-6">
                     <span class="label label-default">Office Telephone</span>
-                    <input type="text" class="form-control" id="addofficetele" placeholder="Enter A Office Telephone" value="<?php echo  $data['office_tele']; ?>">
+                    <input type="text" class="form-control" id="addofficetele" placeholder="Enter A Office Telephone">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Office Mobile</span>
-                    <input type="text" class="form-control" id="addofficemobile" placeholder="Enter A Office Mobile" value="<?php echo  $data['office_mobile']; ?>">
+                    <input type="text" class="form-control" id="addofficemobile" placeholder="Enter A Office Mobile">
                 </div>
                 <div class="col-sm-6">
                     <span class="label label-default">Personal Number</span>
-                    <input type="text" class="form-control" id="addpersonalnumber" placeholder="Enter A Personal Phone" value="<?php echo  $data['personal_number']; ?>">
+                    <input type="text" class="form-control" id="addpersonalnumber" placeholder="Enter A Personal Phone">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Email</span>
-                    <input type="text" class="form-control" id="addemail" placeholder="Enter A Email" value="<?php echo  $data['email']; ?>">
+                    <input type="text" class="form-control" id="addemail" placeholder="Enter A Email">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Address</span>
-                    <input type="text" class="form-control" id="addaddress" placeholder="Enter A Address" value="<?php echo  $data['address']; ?>">
+                    <input type="text" class="form-control" id="addaddress" placeholder="Enter A Address">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Name of Office</span>
-                    <input type="text" class="form-control" id="addnameoffice" placeholder="Enter A Name office" value="<?php echo  $data['name_of_office']; ?>">
+                    <input type="text" class="form-control" id="addnameoffice" placeholder="Enter A Name office">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-6">
                     <span class="label label-default">Division</span>
-                    <input type="text" class="form-control" id="adddivision" placeholder="Enter A Divission" value="<?php echo  $data['division']; ?>">
+                    <input type="text" class="form-control" id="adddivision" placeholder="Enter A Divission">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
                     <span class="label label-default">District</span>
-                    <input type="text" class="form-control" id="adddistrict" placeholder="Enter A District" value="<?php echo  $data['district']; ?>">
+                    <input type="text" class="form-control" id="adddistrict" placeholder="Enter A District">
                 </div>
             </div>
         </div>
@@ -137,7 +115,19 @@ if ($_POST['type'] == "FORM_DATA") {
         <!-- End Modal Footer -->
     </form>
 <?php
+    //=========== Modal  connection End ===============//
+    //===========  Update Modal Fetch Data Start  ============//
 }
+if ($_POST['type'] == 'FETCH_FORM_DATA') {
+    $id = $_POST['id'];
+    $sql = "SELECT * FROM `employee_document` WHERE `id`= '$id'";
+    $results = $database->select($sql);
+    $row = $results->fetch_assoc();
+    $arr = array('id' => $row['id'], 'name' => $row['name'], 'designation' => $row['designation'], 'office_tele' => $row['office_tele'], 'office_mobile' => $row['office_mobile'], 'personal_number' => $row['personal_number'], 'email' => $row['email'], 'address' => $row['address'], 'name_of_office' => $row['name_of_office'], 'division' => $row['division'], 'district' => $row['district']);
+    echo json_encode($arr);
+}
+//===========  Update Modal Fetch Data End  ============//
+//===========  Update  Data Start   ====================//
 if ($_POST['type'] == 'update_data_ajax') {
     $name = $_POST['name'];
     $designation = $_POST['designation'];
@@ -150,7 +140,7 @@ if ($_POST['type'] == 'update_data_ajax') {
     $division = $_POST['division'];
     $district = $_POST['district'];
     $updateId = $_POST['updateId'];
-    $sql = "UPDATE `employee_document` SET `name`='$name',`designation`='$designation',`office_tele`='$office_tele',`office_mobile`='$office_mobile',`personal_number`=' $personal_number',`email`='$email',`address`='$address',`name_of_office`='$name_of_office',`division`='$division',`district`='$district' WHERE `id`='$updateId'";
+    echo $sql = "UPDATE `employee_document` SET `name`='$name',`designation`='$designation',`office_tele`='$office_tele',`office_mobile`='$office_mobile',`personal_number`=' $personal_number',`email`='$email',`address`='$address',`name_of_office`='$name_of_office',`division`='$division',`district`='$district' WHERE `id`='$updateId'";
     $result = $database->update($sql);
     if ($result) {
         $arr = array('status' => 'success', 'msg' => 'Data Update Successfully.');
@@ -159,4 +149,5 @@ if ($_POST['type'] == 'update_data_ajax') {
     }
     echo json_encode($arr);
 }
+//===========  Update  Data Start  End ====================//
 ?>

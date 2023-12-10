@@ -24,6 +24,7 @@ $status = NULL;
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
+
 <body>
     <div class="container">
         <div class="table-title" style="padding-top: 50px;">
@@ -38,6 +39,7 @@ $status = NULL;
                 </div>
             </div>
         </div>
+        <!-- Use Date Search Data  -->
         <section class="content">
             <div class="row">
                 <div class="col-xs-12">
@@ -68,6 +70,7 @@ $status = NULL;
                 </div>
         </section>
     </div>
+    <!-- Data showing Table -->
     <div class="container">
         <div class="box-header" data-original-title>
             <h2><i class="icon-align-justify"></i><span class="break"></span>CRM Report</h2>
@@ -100,15 +103,19 @@ $status = NULL;
             </table>
         </form>
     </div>
-    <!-- add employee Modal HTML -->
+    <!-- Data showing Table End -->
+    <!-- add employee Modal HTML Start -->
     <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-80p">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <span id="modal-show"></span>
             </div>
         </div>
     </div>
+    <!-- add employee Modal HTML End -->
+    <!-- java script start -->
     <script type="text/javascript">
+        // Data search Ajax Call Start
         function data_search() {
             var start_date = $('#start_date').val();
             var end_date = $('#end_date').val();
@@ -122,13 +129,12 @@ $status = NULL;
                 },
                 // dataType:"POST",
                 success: function(result) {
-                    // alert(result);
-                    // console.log(result);
                     $('#result').html(result);
                 }
             });
         }
-
+        // Data search Ajax Call End
+        // Add FromData Ajax Call Start
         function addFromData() {
             $.ajax({
                 url: 'action.php',
@@ -139,32 +145,57 @@ $status = NULL;
                     type: "FORM_DATA"
                 },
                 success: function(responce) {
-                    // alert(responce);
-                    // console.log(responce);
                     $("#addEmployeeModal").modal('show');
                     $("#modal-show").html(responce);
                 }
             });
         }
-
+        // Add FromData Ajax Call End
+        // Update FromData Ajax Call Start
         function updateFormData(id) {
             $.ajax({
                 url: 'action.php',
                 type: 'post',
                 data: {
-                    id: id,
                     acrion: "Update",
                     btnAction: "update_data",
                     type: "FORM_DATA"
                 },
                 success: function(responce) {
-                    console.log(responce);
                     $("#addEmployeeModal").modal('show');
                     $("#modal-show").html(responce);
+                    fetchEmployeeData(id);
                 }
             });
-        };
-
+        }
+        // Update FromData Ajax Call End
+        // Update Fetch Data Ajax Call Start
+        function fetchEmployeeData(id) {
+            $.ajax({
+                url: 'action.php',
+                type: 'post',
+                data: {
+                    id: id,
+                    type: "FETCH_FORM_DATA"
+                },
+                dataType: 'json',
+                success: function(responce) {
+                    $("#updateId").val(responce.id);
+                    $("#addname").val(responce.name);
+                    $("#adddesignation").val(responce.designation);
+                    $("#addofficetele").val(responce.office_tele);
+                    $("#addofficemobile").val(responce.office_mobile);
+                    $("#addpersonalnumber").val(responce.personal_number);
+                    $("#addemail").val(responce.email);
+                    $("#addaddress").val(responce.address);
+                    $("#addnameoffice").val(responce.name_of_office);
+                    $("#adddivision").val(responce.division);
+                    $("#adddistrict").val(responce.district);
+                }
+            });
+        }
+        // Update Fetch Data Ajax Call End
+        // Update Data Ajax Call Start
         function update_data() {
             var name = $('#addname').val();
             var designation = $('#adddesignation').val();
@@ -196,9 +227,7 @@ $status = NULL;
                 },
                 dataType: 'json',
                 success: function(responce) {
-                    // console.log(responce);
-                    // alert(responce);
-                    // console.log(responce);
+                    alert(responce);
                     if (responce.status == "success") {
                         // $("#dataTable").load(" #dataTable > *");
                         sweetAlertSuccess(responce.msg);
@@ -208,15 +237,10 @@ $status = NULL;
                 }
             });
         }
-        // $(document).ready(function() {
-        //     $('#dataTable').DataTable({
-        //         dom: 'Bfrtip',
-        //         buttons: [
-        //             'copyHtml5',
-        //             'excelHtml5'
-        //         ]
-        //     });
-        // });
+        // Update Data Ajax Call End
+        // Insert Data Ajax Call Start
+
+        // Insert Data Ajax Call End
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
