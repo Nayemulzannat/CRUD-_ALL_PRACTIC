@@ -29,7 +29,7 @@ if ($_POST['type'] == 'DATA_SEARCH') {
                 <td><?php echo  $row['created_at'] ?></td>
                 <td>
                     <a><i class="material-icons icon" onclick="updateFormData('<?php echo  $row['id']; ?>');" title="Edit">&#xE254;</i></a>
-                    <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
+                    <a><i class="material-icons icon" onclick="deleteFormData('<?php echo  $row['id']; ?>');" title="Delete">&#xE872;</i></a>
                 </td>
             </tr>
     <?php
@@ -140,7 +140,7 @@ if ($_POST['type'] == 'update_data_ajax') {
     $division = $_POST['division'];
     $district = $_POST['district'];
     $updateId = $_POST['updateId'];
-    echo $sql = "UPDATE `employee_document` SET `name`='$name',`designation`='$designation',`office_tele`='$office_tele',`office_mobile`='$office_mobile',`personal_number`=' $personal_number',`email`='$email',`address`='$address',`name_of_office`='$name_of_office',`division`='$division',`district`='$district' WHERE `id`='$updateId'";
+    $sql = "UPDATE `employee_document` SET `name`='$name',`designation`='$designation',`office_tele`='$office_tele',`office_mobile`='$office_mobile',`personal_number`=' $personal_number',`email`='$email',`address`='$address',`name_of_office`='$name_of_office',`division`='$division',`district`='$district' WHERE `id`='$updateId'";
     $result = $database->update($sql);
     if ($result) {
         $arr = array('status' => 'success', 'msg' => 'Data Update Successfully.');
@@ -150,4 +150,43 @@ if ($_POST['type'] == 'update_data_ajax') {
     echo json_encode($arr);
 }
 //===========  Update  Data Start  End ====================//
+//===========  insert  Data Start  start ====================//
+if ($_POST['type'] == 'insert_data_ajax') {
+    $name = $_POST['name'];
+    $designation = $_POST['designation'];
+    $office_tele = $_POST['office_tele'];
+    $office_mobile = $_POST['office_mobile'];
+    $personal_number = $_POST['personal_number'];
+    $email = $_POST['email'];
+    $address = $_POST['address'];
+    $name_of_office = $_POST['name_of_office'];
+    $division = $_POST['division'];
+    $district = $_POST['district'];
+    if ($name == '' || $designation == '' || $office_tele == '' || $office_mobile == '' || $personal_number == '' || $email == '' || $address == '' || $name_of_office == '' || $division == '' || $district == '') {
+        $arr = array('status' => 'error', 'msg' => 'Data Must Not Be Empty.');
+    } else {
+        $sql = "INSERT INTO `employee_document`(`name`, `designation`, `office_tele`, `office_mobile`, `personal_number`, `email`, `address`, `name_of_office`, `division`, `district`) VALUES ('$name','$designation','$office_tele','$office_mobile','$personal_number','$email','$address','$name_of_office','$division','$district')";
+        $result = $database->insert($sql);
+        if ($result) {
+            $arr = array('status' => 'success', 'msg' => 'Data Inserted Successfully.');
+        } else {
+            $arr = array('status' => 'error', 'msg' => 'Data  Not Inserted.');
+        }
+    }
+    echo json_encode($arr);
+}
+//===========  insert  Data Start  end ====================//
+//===========  Delete  Data Start  start ====================//
+if ($_POST['type'] == 'delete_data_ajax') {
+    $id = $_POST['id'];
+    $sql = "DELETE FROM `employee_document` WHERE `id`='$id'";
+    $result = $database->delete($sql);
+    if ($result) {
+        $arr = array('status' => 'success', 'msg' => 'Data Delete Successfully.');
+    } else {
+        $arr = array('status' => 'error', 'msg' => 'Data  Not Delete.');
+    }
+    echo json_encode($arr);
+}
+//===========  Delete  Data Start  end ====================//
 ?>

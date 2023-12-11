@@ -227,9 +227,9 @@ $status = NULL;
                 },
                 dataType: 'json',
                 success: function(responce) {
-                    alert(responce);
+                    //   $("#dataTable").load(" #dataTable > *");
+                    $("#addEmployeeModal").modal('hide');
                     if (responce.status == "success") {
-                        // $("#dataTable").load(" #dataTable > *");
                         sweetAlertSuccess(responce.msg);
                     } else {
                         sweetAlertError(responce.msg);
@@ -240,7 +240,73 @@ $status = NULL;
         // Update Data Ajax Call End
         // Insert Data Ajax Call Start
 
+
+        function insert_data() {
+            var name = $('#addname').val();
+            var designation = $('#adddesignation').val();
+            var office_tele = $('#addofficetele').val();
+            var office_mobile = $('#addofficemobile').val();
+            var personal_number = $('#addpersonalnumber').val();
+            var email = $('#addemail').val();
+            var address = $('#addaddress').val();
+            var name_of_office = $('#addnameoffice').val();
+            var division = $('#adddivision').val();
+            var district = $('#adddistrict').val();
+            $.ajax({
+                url: 'action.php',
+                type: 'post',
+                data: {
+                    name: name,
+                    designation: designation,
+                    office_tele: office_tele,
+                    office_mobile: office_mobile,
+                    personal_number: personal_number,
+                    email: email,
+                    address: address,
+                    name_of_office: name_of_office,
+                    division: division,
+                    district: district,
+                    type: 'insert_data_ajax'
+                },
+                dataType: 'json',
+                success: function(responce) {
+                    // $("#dataTable").load(" #dataTable > *");
+                    // $("#addEmployeeModal").modal('hide');
+                    if (responce.status == "success") {
+                        sweetAlertSuccess(responce.msg);
+                    } else {
+                        sweetAlertError(responce.msg);
+                    }
+                }
+            });
+        }
         // Insert Data Ajax Call End
+        // Delete Data Ajax Call Start
+        function deleteFormData(id) {
+            if (confirm('Delete user?')) {
+                $.ajax({
+                    url: 'action.php',
+                    type: 'post',
+                    data: {
+                        id: id,
+                        type: 'delete_data_ajax'
+                    },
+                    dataType: 'json',
+                    success: function(responce) {
+                        if (responce.status == "success") {
+                            sweetAlertSuccess(responce.msg);
+                        } else {
+                            sweetAlertError(responce.msg);
+                        }
+                    }
+                });
+
+            } else {
+                //'Cancel' is clicked
+            }
+        }
+
+        // Delete Data Ajax Call End
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
