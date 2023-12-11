@@ -16,13 +16,12 @@ $status = NULL;
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"> -->
     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 
 <body>
@@ -106,7 +105,7 @@ $status = NULL;
     <!-- Data showing Table End -->
     <!-- add employee Modal HTML Start -->
     <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog ">
             <div class="modal-content">
                 <span id="modal-show"></span>
             </div>
@@ -231,6 +230,7 @@ $status = NULL;
                     $("#addEmployeeModal").modal('hide');
                     if (responce.status == "success") {
                         sweetAlertSuccess(responce.msg);
+                        data_search();
                     } else {
                         sweetAlertError(responce.msg);
                     }
@@ -239,8 +239,6 @@ $status = NULL;
         }
         // Update Data Ajax Call End
         // Insert Data Ajax Call Start
-
-
         function insert_data() {
             var name = $('#addname').val();
             var designation = $('#adddesignation').val();
@@ -274,6 +272,8 @@ $status = NULL;
                     // $("#addEmployeeModal").modal('hide');
                     if (responce.status == "success") {
                         sweetAlertSuccess(responce.msg);
+                        $("#fromreset").trigger('reset');
+                        data_search();
                     } else {
                         sweetAlertError(responce.msg);
                     }
@@ -295,6 +295,7 @@ $status = NULL;
                     success: function(responce) {
                         if (responce.status == "success") {
                             sweetAlertSuccess(responce.msg);
+                            data_search();
                         } else {
                             sweetAlertError(responce.msg);
                         }
@@ -305,22 +306,27 @@ $status = NULL;
                 //'Cancel' is clicked
             }
         }
-
         // Delete Data Ajax Call End
+        $('#CheckAll').change(function() {
+            // console.log(CheckAll);
+            if ($(this).is(":checked")) {
+                $('.checkboxes').each(function() {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $('.checkboxes').each(function() {
+                    $(this).prop("checked", false);
+                });
+            }
+        });
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('#dataTable').DataTable({
                 dom: 'Bfrtip',
-                buttons: [{
-                    extend: 'excel',
-                    text: 'Excel',
-                    exportOptions: {
-                        modifier: {
-                            search: 'none'
-                        }
-                    }
-                }]
+                paging: true,
+                searching: true
+              
             });
         });
     </script>
@@ -350,12 +356,11 @@ $status = NULL;
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <!-- datable library -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> -->
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script> -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>
