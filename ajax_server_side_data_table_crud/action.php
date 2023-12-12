@@ -12,7 +12,7 @@ if ($_POST['type'] == 'DATA_SEARCH') {
             <tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata">
+                        <input type="checkbox" class="checkboxes" id="checkboxdata" name="checkboxdata" value="<?php echo  $row['id']; ?>">
                         <label for="checkbox1"></label>
                     </span>
                 </td>
@@ -189,4 +189,24 @@ if ($_POST['type'] == 'delete_data_ajax') {
     echo json_encode($arr);
 }
 //===========  Delete  Data Start  end ====================//
+//===========  Multiple  Data Delete  start ====================//
+if ($_POST['type'] == 'multipleDataDelete_data_ajax') {
+    $id = $_POST['id'];
+    // print_r($id);
+
+    if ($id == '') {
+        $arr = array('status' => 'success', 'msg' => 'Pleace Select Data.');
+    } else {
+        $str = implode(",", $id);
+        $sql = "DELETE FROM `employee_document` WHERE `id` in ($str)";
+        $result = $database->delete($sql);
+        if ($result) {
+            $arr = array('status' => 'success', 'msg' => 'Data Delete Successfully.');
+        } else {
+            $arr = array('status' => 'error', 'msg' => 'Data  Not Delete.');
+        }
+    }
+    echo json_encode($arr);
+}
+//===========  Multiple  Data Delete  end ====================//
 ?>

@@ -34,7 +34,7 @@ $status = NULL;
                 <div class="col-sm-6">
                     <!-- <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a> -->
                     <a class="btn btn-success" onclick="addFromData();"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
-                    <a class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                    <a class="btn btn-danger" onclick="multiPleDeleteData();"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
@@ -281,7 +281,7 @@ $status = NULL;
             });
         }
         // Insert Data Ajax Call End
-        // Delete Data Ajax Call Start
+        // Delete Multiple Data Ajax Call Start
         function deleteFormData(id) {
             if (confirm('Delete user?')) {
                 $.ajax({
@@ -306,7 +306,8 @@ $status = NULL;
                 //'Cancel' is clicked
             }
         }
-        // Delete Data Ajax Call End
+        // Delete MultipleData Ajax Call End
+        // Multiple Data select system 
         $('#CheckAll').change(function() {
             // console.log(CheckAll);
             if ($(this).is(":checked")) {
@@ -319,6 +320,47 @@ $status = NULL;
                 });
             }
         });
+        // Multiple Data select system 
+        // Multiple Data Delete system start
+        function multiPleDeleteData() {
+            // Multiple Data select Formulla Number one
+            var id = [];
+
+            $(".checkboxes:checked").each(function(key) {
+                id[key] = $(this).val();
+            });
+
+            // Multiple Data select Formulla Number two 
+            // var arr = new Array();
+            // $(".checkboxes:checked").each(function() {
+            //   arr.push($(this).attr("rel"));
+            // });
+            if (id != '') {
+                let msg = confirm("Are You Sure");
+                if (msg == true) {
+                    $.ajax({
+                        url: 'action.php',
+                        type: 'post',
+                        data: {
+                            id: id,
+                            type: 'multipleDataDelete_data_ajax'
+                        },
+                        dataType: 'json',
+                        success: function(responce) {
+                            if (responce.status == "success") {
+                                sweetAlertSuccess(responce.msg);
+                                data_search();
+                            } else {
+                                sweetAlertError(responce.msg);
+                            }
+                        }
+                    });
+                }
+            } else {
+                alert("Select Your Record");
+            }
+        }
+        // Multiple Data Delete system End
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -326,7 +368,7 @@ $status = NULL;
                 dom: 'Bfrtip',
                 paging: true,
                 searching: true
-              
+
             });
         });
     </script>
