@@ -60,15 +60,18 @@
       $("#submit").click(function() {
         var name = $('#fullname').val();
         var age = $('#age').val();
-        var allData = $('#submit_form').serialize();
+        if(name == "" || age == "" || !$('input:radio[name=gender]').is(':checked')){
+          $('#response').fadeIn();
+          $('#response').removeClass('success-msg error-msg').addClass('process-msg').html('Loading response...');
+        }else{
+
+        }
         $.ajax({
           url: 'save-form.php',
           type: 'post',
-          data: {
-            allData :allData
-          },
+          data: $('#submit_form').serialize(),
           success: function(responce) {
-            alert(responce);
+            // alert(responce);
             console.log(responce);
             $('#response').html(responce);
           }

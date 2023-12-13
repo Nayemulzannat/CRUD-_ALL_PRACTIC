@@ -6,12 +6,7 @@ $object = new database();
 $prami = "SELECT * FROM customer";
 $read = $object->select($prami);
 // echo $prami;
-
-
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +22,6 @@ $read = $object->select($prami);
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <body>
     <div class="container">
         <div class="table-wrapper">
@@ -68,7 +62,6 @@ $read = $object->select($prami);
                     <?php
                     if ($read) {
                         while ($rows = $read->fetch_assoc()) {
-
                     ?>
                             <tr>
 
@@ -220,7 +213,6 @@ $read = $object->select($prami);
                     success: function(response) {
                         $('.showMessage').css('display', 'block').html(response);
                         $("#requestResult").load(" #requestResult > ");
-
                         setTimeout(function() {
                             $('.showMessage').css('display', 'none');
 
