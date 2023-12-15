@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>
-                    <a onclick="multipleDeleteRecord()" class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+                    <a  class="btn btn-danger"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <!-- <tbody>
+            <tbody>
                     <tr>
                             <td>
                                     <span class="custom-checkbox">
@@ -90,16 +90,16 @@
                                     </span>
                                 </td>
 
-                                <td><?php echo $rows['name'] ?></td>
-                                <td><?php echo $rows['email'] ?></td>
-                                <td><?php echo $rows['address'] ?></td>
-                                <td><?php echo $rows['phone'] ?></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
                                     <a><i class="material-icons icon" title="Edit">&#xE254;</i></a>
                                     <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>                   
-                </tbody> -->
+                </tbody>
         </table>
     </div>
 
