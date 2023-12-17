@@ -90,10 +90,6 @@
                                     </span>
                                 </td>
 
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
                                 <td>
                                     <a><i class="material-icons icon" title="Edit">&#xE254;</i></a>
                                     <a><i class="material-icons icon" title="Delete">&#xE872;</i></a>
