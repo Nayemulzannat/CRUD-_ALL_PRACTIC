@@ -74,8 +74,6 @@
                         </span>
                     </th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Address</th>
                 </tr>
             </thead>
             <tbody>
