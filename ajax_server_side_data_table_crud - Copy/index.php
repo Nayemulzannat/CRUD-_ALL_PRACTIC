@@ -73,7 +73,6 @@
                             <label for="selectAll"></label>
                         </span>
                     </th>
-                    <th>Name</th>
                 </tr>
             </thead>
             <tbody>
