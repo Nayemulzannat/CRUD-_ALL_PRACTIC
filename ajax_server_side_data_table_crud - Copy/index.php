@@ -73,6 +73,8 @@
                             <label for="selectAll"></label>
                         </span>
                     </th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
