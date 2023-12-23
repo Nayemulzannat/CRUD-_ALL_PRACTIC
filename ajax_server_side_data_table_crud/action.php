@@ -192,7 +192,6 @@ if ($_POST['type'] == 'delete_data_ajax') {
 //===========  Multiple  Data Delete  start ====================//
 if ($_POST['type'] == 'multipleDataDelete_data_ajax') {
     $id = $_POST['id'];
-    // print_r($id);
 
     if ($id == '') {
         $arr = array('status' => 'success', 'msg' => 'Pleace Select Data.');
