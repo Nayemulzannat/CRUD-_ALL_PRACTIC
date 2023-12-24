@@ -15,7 +15,6 @@ class  database
     public function __construct()
     {
         $this->connected = new mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
-        // echo "connected";
         if (!$this->connected) {
             $this->error = "connection is fail" . $this->connected->connect_error;
         }
