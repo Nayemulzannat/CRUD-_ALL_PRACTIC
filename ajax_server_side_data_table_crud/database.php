@@ -21,6 +21,7 @@ class  database
     }
 
     // ============ data show table
+    // ============ data show table
     public function select($dataSelect)
     {
         // return $dataSelect;
