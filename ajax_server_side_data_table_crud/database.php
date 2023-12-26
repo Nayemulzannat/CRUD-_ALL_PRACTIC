@@ -33,6 +33,7 @@ class  database
         }
     }
     // =========== insert data=========
+    // =========== insert data=========
     public function insert($parami)
     {
         $result = $this->connected->query($parami) or die($this->connected->error . __LINE__);
