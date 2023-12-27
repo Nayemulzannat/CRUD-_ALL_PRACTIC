@@ -21,7 +21,6 @@ class  database
     }
 
     // ============ data show table
-    // ============ data show table
     public function select($dataSelect)
     {
         // return $dataSelect;
@@ -32,7 +31,6 @@ class  database
             return false;
         }
     }
-    // =========== insert data=========
     // =========== insert data=========
     public function insert($parami)
     {
