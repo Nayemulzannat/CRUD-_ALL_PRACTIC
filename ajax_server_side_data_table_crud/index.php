@@ -322,6 +322,7 @@ $status = NULL;
         });
         // Multiple Data select system 
         // Multiple Data Delete system start
+        // Multiple Data Delete system start
         function multiPleDeleteData() {
             // Multiple Data select Formulla Number one
             var id = [];
