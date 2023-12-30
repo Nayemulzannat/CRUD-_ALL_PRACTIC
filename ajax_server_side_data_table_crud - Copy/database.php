@@ -72,7 +72,6 @@ class  database
     {
         if ($this->connected) {
             $this->connected->close();
-            // echo "No connected";
         }
     }
 }
