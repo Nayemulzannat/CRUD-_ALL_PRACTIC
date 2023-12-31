@@ -68,6 +68,7 @@ class  database
 
 
     // DATABASE CONNECTION CLOSE =====
+    // DATABASE CONNECTION CLOSE =====
     public function __destruct()
     {
         if ($this->connected) {
