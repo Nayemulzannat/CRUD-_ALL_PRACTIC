@@ -43,6 +43,8 @@ class  database
         }
     }
     // ==========delete data=========
+    // ==========delete data=========
+    // ==========delete data=========
     public function delete($delete)
     {
         $result = $this->connected->query($delete) or die($this->connected->error . __LINE__);
