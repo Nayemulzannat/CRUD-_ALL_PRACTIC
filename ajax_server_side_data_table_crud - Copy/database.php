@@ -6,7 +6,6 @@ class  database
     private $db_user = "root";
     private $db_pass = "";
     private $db_name = "oop_crud_1";
-
     public $connected;
     public $error;
     public $result;
