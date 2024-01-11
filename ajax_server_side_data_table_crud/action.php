@@ -190,6 +190,7 @@ if ($_POST['type'] == 'delete_data_ajax') {
 }
 //===========  Delete  Data Start  end ====================//
 //===========  Multiple  Data Delete  start ====================//
+//===========  Multiple  Data Delete  start ====================//
 if ($_POST['type'] == 'multipleDataDelete_data_ajax') {
     $id = $_POST['id'];
 
