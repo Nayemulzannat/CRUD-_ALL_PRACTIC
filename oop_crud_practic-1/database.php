@@ -10,7 +10,6 @@ class Database
     public $error = [];
     public $result;
 
-
     public function __construct()
     {
         $this->mysqli = new mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
